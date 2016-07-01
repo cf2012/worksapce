@@ -11,3 +11,10 @@ useradd  -d /home/wildfly  -m -s  /bin/bash wildfly
 userdel redis
 userdel -r redis # 会删除用户的 HOME 目录
 
+# 查询进程内存占用情况
+ps aux | head -1; ps aux | grep nginx
+
+# 查询 tcp 连接情况. 显示: TIME_WAIT 数量, ESTABLISHED 数量
+netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+
+
