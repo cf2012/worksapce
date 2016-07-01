@@ -16,7 +16,7 @@ def main(args):
 	if len(args) != 3:
 		sys.exit(usage())
 
-	with open("tpl/useradd.sql.tpl", 'r') as fp:
+	with open("tpl/useradd.sql", 'r') as fp:
 		sql = "".join(fp.readlines())
 		s = Template(sql)
 		name, pswd, database = args
