@@ -19,4 +19,5 @@ netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
 
 # rsync-ssh-on-different-port
 # 参见: http://www.linuxquestions.org/questions/linux-software-2/rsync-ssh-on-different-port-448112/
-rsync -avzH  --progress --inplace --rsh="ssh -p2222"  $files $username@$ip:$remote_dir/
+# p.s. 使用时遇到的错误 : rsync error: remote command not found (code 127) at io.c(605) [sender=3.0.9]. 原因: 对端服务器也需要安装 rsync!
+rsync -avzH  --progress --inplace --rsh="ssh -p$port"  $files $username@$ip:$remote_dir/
