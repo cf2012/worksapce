@@ -1,20 +1,22 @@
-# ³£ÓÃ 
+# å¸¸ç”¨ 
 
-# Éú³ÉËæ»ú×Ö·û´®
+# ç”Ÿæˆéšæœºå­—ç¬¦ä¸²
 openssl rand -base64 32
 
-# ´´½¨ÓÃ»§
+# åˆ›å»ºç”¨æˆ·
 useradd  -d /var/lib/redis -m -s  /sbin/nologin redis
 useradd  -d /home/wildfly  -m -s  /bin/bash wildfly
 
-# É¾³ıÓÃ»§
+# åˆ é™¤ç”¨æˆ·
 userdel redis
-userdel -r redis # »áÉ¾³ıÓÃ»§µÄ HOME Ä¿Â¼
+userdel -r redis # ä¼šåˆ é™¤ç”¨æˆ·çš„ HOME ç›®å½•
 
-# ²éÑ¯½ø³ÌÄÚ´æÕ¼ÓÃÇé¿ö
+# æŸ¥è¯¢è¿›ç¨‹å†…å­˜å ç”¨æƒ…å†µ
 ps aux | head -1; ps aux | grep nginx
 
-# ²éÑ¯ tcp Á¬½ÓÇé¿ö. ÏÔÊ¾: TIME_WAIT ÊıÁ¿, ESTABLISHED ÊıÁ¿
+# æŸ¥è¯¢ tcp è¿æ¥æƒ…å†µ. æ˜¾ç¤º: TIME_WAIT æ•°é‡, ESTABLISHED æ•°é‡
 netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
 
-
+# rsync-ssh-on-different-port
+# å‚è§: http://www.linuxquestions.org/questions/linux-software-2/rsync-ssh-on-different-port-448112/
+rsync -avzH  --progress --inplace --rsh="ssh -p2222"  $files $username@$ip:$remote_dir/
