@@ -4,7 +4,7 @@
 输出指定目录inode使用率.  模仿 df -i 
 在 CentOS 6.7 + py2.6 中测试通过
 在 CentOS 6.7 + py3.5 中测试通过
-
+在 CentOS 7.2 + py2.7 中测试通过
 """
 import os, sys
 
