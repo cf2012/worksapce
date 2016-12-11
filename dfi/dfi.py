@@ -9,7 +9,11 @@
 import os, sys
 
 if __name__ == "__main__":
-	path=sys.argv[1]
-	sfsp=os.statvfs(path)
-	print(round(float(sfsp.f_files - sfsp.f_ffree)/sfsp.f_files * 100, 1) )
+	path = sys.argv[1]
+	sfsp = os.statvfs(path)
+
+	if  sfsp.f_files == 0:
+		print(100)
+	else:
+		print(round(float(sfsp.f_files - sfsp.f_ffree)/sfsp.f_files * 100, 1) )
 
