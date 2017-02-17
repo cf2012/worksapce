@@ -17,14 +17,19 @@ remote_dir="UserName@host:/dev/shm/"
 repository_url=""
 
 
+die(){
+        echo $@ 1>&2
+        exit 1
+}
+
 init(){
 	# 创建仓库
-	cd `dirname $local_dir` && git clone ${repository_url}
+	cd `dirname $local_dir` && git clone ${repository_url} || die "初始化失败"
 }
 
 update(){
 	# 更新
-	cd ${local_dir} && git pull 
+	cd ${local_dir} && git pull || die "更新代码失败"
 }
 
 push_incr(){
@@ -42,7 +47,12 @@ case "$1" in
 		update && push_incr
 		;;
 	*)
-		echo "Usage: xxxx"
+		echo "Usage: $0 init | update"
+		echo "    init 初始化本地git仓库"
+		echo "    update 下载增量, 并将增量推送到远端服务器"
+		echo "e.g."
+		echo "    初始化并上传到远端:  $0 init && $0 update"
+		echo "    将增量更新到远端:  $0 update"
 		;;
 esac
 
