@@ -17,9 +17,9 @@ User=webapp
 PrivateTmp=true
 Environment=JAVA_HOME=/usr/java/jdk1.7.0_79
 Environment=CATALINA_HOME=/opt/server/apache-tomcat-7.0.76
-Environment=CATALINA_BASE=/var/www/apache-tomcat-7.0.68
-# 设置 jvm 参数
-Environment='CATALINA_OPTS=-Xms4096m -Xmx8192m -XX:MaxPermSize=1024m -Xss512k'
+Environment=CATALINA_BASE=/var/www/tomcat
+# 设置 jvm 参数. 注意`CATALINA_OPTS`前后两端的单引号. 如果没有,会报错. p.s. 用双引号应该也行吧
+Environment='CATALINA_OPTS=-Xms4096m -Xmx4096m -XX:MaxPermSize=1024m -Xss512k'
 
 # 设置只读目录和可以读写的目录. 有效性未验证. :)
 ReadOnlyPaths=/var/www/tomcat/webapps
