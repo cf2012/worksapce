@@ -1,0 +1,25 @@
+# 用于测试 systemd
+# 需要在本机先执行:  nc  -lk 9090
+[Unit]
+Description=tt2
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/nc -c /bin/bash 127.0.0.1  9090
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+User=webapp
+PrivateTmp=true
+LimitNPROC=8000
+
+#InaccessibleDirectories="/"
+ReadWriteDirectories=/dev/shm/rw /dev/shm/ro
+ReadOnlyDirectories="/"
+
+InaccessibleDirectories="/home"
+
+Environment=JAVA_HOME=/usr/java/jdk1.7.0_79
+
+[Install]
+WantedBy=multi-user.target
