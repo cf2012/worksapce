@@ -12,7 +12,7 @@
 
 3. 同一个变量可以写多行. 比如 `Environment`
 
-4. `man` 中建议对于`long-running services` 设置 `ProtectSystem`, `ProtectHome`.
+4. `man systemd.exec` 中建议对于`long-running services` 设置 `ProtectSystem`, `ProtectHome`.
 
 
 # 参考资料 #
