@@ -23,12 +23,14 @@ Environment=CATALINA_BASE=/var/www/tomcat
 Environment='CATALINA_OPTS=-Xms4096m -Xmx4096m -XX:MaxPermSize=1024m -Xss512k'
 
 # 设置只读目录和可以读写的目录. 有效性未验证. :)
-ReadOnlyPaths=/var/www/tomcat/webapps
-ReadOnlyPaths=/var/www/tomcat/conf
-ReadOnlyPaths=/var/www/tomcat/bin
-ReadWritePaths=/var/www/tomcat/logs
-ReadWritePaths=/var/www/tomcat/temp
-ReadWritePaths=/var/www/tomcat/work
+## 设置 /var/www/tomcat 下所有目录为只读. webapps, conf, bin, etc
+ReadOnlyDirectories=/var/www/tomcat
+## 排除logs, temp, work. 这三个目录允许读写.
+ReadWriteDirectories=/var/www/tomcat/logs
+ReadWriteDirectories=/var/www/tomcat/temp
+ReadWriteDirectories=/var/www/tomcat/work
+## 将 bin 目录设置为禁止访问
+InaccessibleDirectories=/var/www/tomcat/bin
  
 [Install]
 WantedBy=multi-user.target
