@@ -1,16 +1,13 @@
 #!/bin/bash
 
-# clone
+# 目的: 从GitLab中下载Web静态页面, 然后发布到Web服务器中.
 # 输入参数:  git地址  分支  远程目录地址 [要上传的本地目录]
-# i.e.$0 git地址 develop xxxx  dist 
-
-
+# i.e. $0 git地址 develop xxxx  dist
 repository="${1:? 参数1, git地址不能为空}"
 
 branch="${2:? 参数2, Git分支名称不能为空}"
 
 remote_dir="${3:?参数3, 远程目录地址不能为空}"
-
 
 # 本地git仓库中, 要上传的目录. 可选参数
 local_dir="$4"
@@ -43,6 +40,7 @@ if [ -d ${repository_dir} ]
 then
 	echo "本地仓库已经存在, 拉取最新代码"
 	#git fetch origin ${branch} 
+	# 删除本地新增的文件. 以远程仓库为准	
 	git reset --hard origin/${branch}
 	git clean -xdf 
 	git pull origin ${branch}
