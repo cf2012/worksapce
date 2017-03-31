@@ -34,7 +34,6 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~"
 # 1. 切换到工作目录
 cd ${workspace}
 
-
 # 2. 从Git仓库中下载更新.
 if [ -d ${repository_dir} ]
 then
