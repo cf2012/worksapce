@@ -49,7 +49,7 @@ then
 	git fetch --all
 	echo "> 将 HEAD 指向刚刚下载的最新版本"
 	git reset --hard origin/${branch}
-	# 删除本地文件
+	# 删除本地新增但没有提交的文件
 	git clean -xdf 
 	echo "> 更新后,本地仓库:"
 	git log -1
