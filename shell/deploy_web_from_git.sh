@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # 目的: 从GitLab中下载Web静态页面, 然后发布到Web服务器中.
+# 使用的环境变量: WORKSPACE, 工作目录. 本地Git仓库的保存目录. Jenkins调用该shell脚本时,会自动传.
 # 输入参数:  git地址  分支  远程目录地址 [要上传的本地目录]
 # i.e. $0 git地址 develop xxxx  dist
 
@@ -14,6 +15,8 @@ remote_dir="${3:?参数3, 远程目录地址不能为空}"
 # 本地git仓库中, 要上传的目录. 可选参数
 local_dir="$4"
 
+# 脚本被Jenkins调用时, Jenkins会传WORKSPACE. 
+# 如果不传 `WORKSPACE`, 会取当前工作目录作为默认值
 #default value is `pwd`, https://www.cyberciti.biz/tips/bash-shell-parameter-substitution-2.html
 workspace=${WORKSPACE-`pwd`}
 
