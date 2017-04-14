@@ -5,11 +5,13 @@
 # 输入参数:  git地址  分支  远程目录地址 [要上传的本地目录]
 # i.e. $0 git地址 develop xxxx  dist
 
+# v2.0,2017/04, 目的: 允许调用脚本将代码发布到不同的主机.
+
 repository="${1:? 参数1, git地址不能为空}"
 
 branch="${2:? 参数2, Git分支名称不能为空}"
 
-remote_dir="${3:?参数3, 远程目录地址不能为空}"
+dest="${3:?参数3, 目标地址不能为空. 格式: User@host:dir}"
 
 
 # 本地git仓库中, 要上传的目录. 可选参数
@@ -22,18 +24,14 @@ workspace=${WORKSPACE-`pwd`}
 
 repository_dir="`basename ${repository}`"
 
-rsync_host="用户名@主机" # 需要修改
-rsync_dest="/var/www/${remote_dir}" # 程序要部署的目录
 
 ############
 echo "~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Git地址: ${repository}"
 echo "Git分支: ${branch}"
-echo "远程目录: ${remote_dir}"
 echo "本地Git仓库路径: ${workspace}/${repository_dir}"
 echo "本地Git仓库中,要上传的目录: [${local_dir}], 可选参数, 可为空"
-echo "文件发布主机: ${rsync_host:? 参数 rsync_host, 文件要发布到的主机不能为空!}"
-echo "文件发布目录: ${rsync_dest:? 参数 rsync_dest, 发布目录不能为空!}"
+echo "文件发布主机&目录: ${dest:? 参数 dest, 文件要发布到的主机不能为空!}"
 echo "~~~~~~~~~~~~~~~~~~~~~~~"
 
 # 从Git仓库中下载更新.
@@ -62,6 +60,6 @@ fi
 
 
 echo "> 增量上传文件. p.s. 会删除已经删除的文件"
-cd ${workspace} && rsync -avzP  --delete ${repository_dir}/${local_dir}  ${rsync_host}:${rsync_dest}
-
+echo "cd ${workspace} && rsync -avzP  --delete ${repository_dir}/${local_dir}  ${dest}"
+cd ${workspace} && rsync -avzP  --delete ${repository_dir}/${local_dir}  ${dest}
 
