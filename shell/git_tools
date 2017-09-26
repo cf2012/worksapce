@@ -1,0 +1,65 @@
+#!/bin/bash
+
+## 目的. 创建本次git仓库, 或者更新本地git仓库
+##
+
+
+repository_url="${1:? 参数1, git地址不能为空}"
+repository_dir="${2:? 参数2, git本地目录名}"
+
+branch="${3:? 参数3, Git分支名称不能为空}"
+
+
+
+#default value is `pwd`, https://www.cyberciti.biz/tips/bash-shell-parameter-substitution-2.html
+workspace=${WORKSPACE-`pwd`}
+
+############
+echo "~~~~~~~~~~~~~~~~~~~~~~~"
+echo "Git地址: ${repository}"
+echo "Git分支: ${branch}"
+echo "本地Git仓库路径: ${workspace}/${repository_dir}"
+echo "~~~~~~~~~~~~~~~~~~~~~~~"
+
+function usage(){
+    echo "$0: repository_url  repository_dir branch"
+}
+
+function die(){
+        echo $@ 1>&2
+        exit 1
+}
+
+function git_init(){
+    # 创建仓库
+    cd ${workspace} \
+    && git clone ${repository_url} \
+    && cd ${repository_dir} \
+    && git checkout ${branch} \
+    && echo "创建仓库完毕." || die "创建仓库失败"
+}
+
+function git_update(){
+    # 更新
+    echo "> 本地仓库已经存在, 拉取最新代码"
+    cd ${workspace}/${repository_dir} \
+    && echo ">> 拉取前本地仓库: " \
+    && git log -1 \
+    && echo "> 下载远程库的内容, 不做合并" \
+    && git fetch --all \
+    && echo "> 将 HEAD 指向刚刚下载的最新版本" \
+    && git reset --hard origin/${branch} \
+    && echo "> 删除本地新增但没有提交的文件" \
+    && git clean -xdf \
+    && echo "> 更新后,本地仓库:" \
+    && git log -1 \
+    && echo "更新完毕" || die "更新本地仓库失败"
+}
+
+if [ -d ${workspace}/${repository_dir} ]
+then
+    git_update
+else
+    git_init
+fi
+
