@@ -70,6 +70,9 @@ CentOS中使用mailx登陆stmp服务器发送电子邮件
 	mailx -a nohup.out -s 程序日志  cf2012@example.com << EOF
 	RT
 	EOF
+	
+	# or
+	echo "我是邮件正文" | mailx -s 程序日志 cf2012@example.com
 
 就可以将日志发送到自己的邮箱了 :)
 
