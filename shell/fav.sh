@@ -3,6 +3,10 @@
 # 生成随机字符串
 openssl rand -base64 32
 
+# 生成密码
+# yum install expect 
+mkpasswd
+
 # 创建用户
 useradd  -d /var/lib/redis -m -s  /sbin/nologin redis
 useradd  -d /home/wildfly  -m -s  /bin/bash wildfly
