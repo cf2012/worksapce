@@ -25,10 +25,12 @@ n1 看作防火墙. 有两块网卡. 一块连公网(public), 一块连接内网
 
 4. 查看 dmz 区域是否支持转发.  
 
+```bash
   firewall-cmd --zone=dmz --query-masquerade
   # 如果不支持(上一句返回 no). 设置。
   firewall-cmd --zone=dmz --add-masquerade
-  
+```
+
 5 添加转发规则. 将 public 7070收到的请求, 转发给 后段 192.168.30.21.
 
   firewall-cmd --zone=public --add-forward-port=port=7070:proto=tcp:toaddr=192.168.30.21
